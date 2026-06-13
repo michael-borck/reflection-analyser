@@ -48,3 +48,7 @@ class ReflectionAnalysis(BaseModel):
         "text",
         description="'text' | 'file:txt' | 'file:md' | 'file:pdf' | 'file:docx' | …",
     )
+
+    # Pooled, L2-normalised reflection vector from lens-embed (pinned
+    # all-MiniLM-L6-v2). Comparable across members; None unless [embeddings] installed.
+    embedding: list[float] | None = None

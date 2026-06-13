@@ -6,6 +6,7 @@ from pathlib import Path
 
 from .exceptions import ReflectionAnalyserError
 from .lexicon import lexicons
+from reflection_analyser.embedding import embed_document
 from .schemas import MarkerSignal, ReflectionAnalysis
 
 # Weighting per marker family in the composite depth score. Tuned so that
@@ -62,6 +63,8 @@ class ReflectionAnalyser:
         composite = _compute_depth(signals)
         band = _band_for(composite)
 
+        embedding = embed_document(text)
+
         return ReflectionAnalysis(
             word_count=word_count,
             sentence_count=len(sentences),
@@ -73,6 +76,7 @@ class ReflectionAnalyser:
             composite_depth_score=round(composite, 4),
             depth_band=band,
             source_kind=source_kind,
+            embedding=embedding,
         )
 
     def analyse(self, path: str | Path) -> ReflectionAnalysis:
